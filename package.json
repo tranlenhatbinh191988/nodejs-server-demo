@@ -21,6 +21,8 @@
     "lodash": "^4.17.15",
     "mongoose": "^5.9.10",
     "nodemon": "^2.0.3",
+    "normalize-url": "^5.0.0",
+    "request": "^2.88.2",
     "validator": "^13.0.0"
   }
 }
