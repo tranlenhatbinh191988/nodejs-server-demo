@@ -114,6 +114,7 @@ router.get("/github/:username?", (req, res) => {
 // @access Public
 router.get(
   '/',
+  auth,
   async(req, res) => {
     try {
       const profiles = await Profile.find().populate('user', ['name', 'avatar'])
@@ -130,6 +131,7 @@ router.get(
 // @access Public
 router.get(
   '/user?',
+  auth,
   async (req, res) => {
     try {
       const profile = await Profile.findOne({user: req.query.user_id}).populate('user', ['name', 'avatar'] )
