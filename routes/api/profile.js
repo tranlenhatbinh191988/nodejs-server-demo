@@ -128,7 +128,6 @@ router.get(
 // @route GET api/profile/user/:user_id
 // @desc Get profile by user ID
 // @access Public
-
 router.get(
   '/user?',
   async (req, res) => {
