@@ -135,4 +135,99 @@ router.post("/unlike/:id?", auth, async (req, res) => {
     res.status(500).send(`Server Error ${error}`);
   }
 });
+// @route PUT api/posts/item?:id
+// @desc Update a post by id
+// @access Private
+
+router.put(
+  "/item?",
+  [auth, [check("text", "Text is required").not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { text } = req.body;
+    // Build post object
+    const postInfo = {};
+    if (text) postInfo.text = text;
+    try {
+      let post = await Post.findById(req.query.id);
+      if (post) {
+        // Update profile
+        post = await Post.findOneAndUpdate(
+          req.params.id,
+          { $set: postInfo },
+          { new: true }
+        );
+        return res.json(post);
+      }
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send("Server error");
+    }
+  }
+);
+
+// @route POST api/posts/comment/:id
+// @desc Comment on a post
+// @access Private
+
+router.post(
+  "/comment?",
+  [auth, [check("text", "Text is required").not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      const post = await Post.findById(req.query.id);
+      const user = await User.findById(req.user.id).select("-password");
+      const newComment = {
+        user: req.user.id,
+        text: req.body.text,
+        name: user.name,
+        avatar: user.avatar,
+      };
+      post.comments.unshift(newComment);
+      await post.save();
+      res.json(post.comments);
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send("Server error");
+    }
+  }
+);
+
+// @route DELETE api/posts/comment?id?comment_id
+// @desc Delete comment on a post
+// @access Private
+
+router.delete("/comment", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.query.id_post);
+    // Pull out comment
+    const comment = await post.comments.find(
+      (comment) => comment.id === req.query.comment_id
+    );
+    // Make sure comment exists
+    if (!comment) {
+      return res.status(400).json({ msg: "There is no comment here" });
+    }
+    // Check user
+    if (comment.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "User not authorized" });
+    }
+    post.comments = post.comments.filter(
+      (comment) => comment.id !== req.query.comment_id
+    );
+    await post.save();
+    return res.json(post);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router;
