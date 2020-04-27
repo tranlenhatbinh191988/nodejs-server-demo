@@ -1,15 +1,21 @@
-const express = require('express')
-const app = express()
-const connectDB = require('./config/db')
-const cors = require('cors') // Fix Access-Control-Allow-Origin error
-app.use(cors())
-app.get('/', (req, res) =>  res.send('API running'))
+const express = require("express");
+const app = express();
+const connectDB = require("./config/db");
+const cors = require("cors"); // Fix Access-Control-Allow-Origin error
+app.use(cors());
+app.get("/", (req, res) => res.send("API running"));
 
 // Connect Database
-connectDB()
+connectDB();
 
 // Init middleware
-app.use(express.json()) // read req.body
+app.use(express.json()); // read req.body
 
-const PORT = process.env.PORT || 5000
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
+// Define Routes
+app.use("/api/users", require("./routes/api/users"))
+app.use("/api/auth", require("./routes/api/auth"))
+app.use("/api/profile", require("./routes/api/profile"))
+app.use('/api/posts', require('./routes/api/posts'))
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

@@ -1,7 +1,34 @@
+
 #  Dev Connector Server API
 A platform for developers to connect. They can create their portofolio by adding their experience, education, skills and other important information of their professional career.
 
 Users can also create small posts and like/dislike and comment on other posts.
+
+### Directory structure
+```
+/
+|
+|- config/
+|   |- db.js/
+|   |- default.json/
+|- middleware
+|   |- auth.js
+|- models
+|   |- Post
+|   |- Profile
+|   |- User
+|- routes
+|   |- api
+|       |- auth.js
+|       |- posts.js
+|       |- profile.js
+|       |- users.js
+|- .gitignore
+|- server.js
+|- README.md
+|- package.json
+\
+```
 
 ### Quick Start
 ```
