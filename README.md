@@ -33,8 +33,7 @@ Users can also create small posts and like/dislike and comment on other posts.
 ### Quick Start
 ```
 # clone repository
-https://github.com/RoshanSureen/dev-connector.git
-
+git@github.com:tranlenhatbinh191988/nodejs-server-demo.git
 # Install dependencies
 cd nodejs-server-demo && npm install
 ```
