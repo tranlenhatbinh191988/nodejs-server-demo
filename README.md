@@ -1,15 +1,10 @@
 
-# Social Nodejs Server
-## Target:
-### Here is the Nodejs Server Demo about social app with some main features:
-```
- - User sign up and login
- - User create/update/view profiles
- - User can do post
- - User can leave comment into post
- - User can like/dislike a post
-```
-## Directory structure
+#  Dev Connector Server API
+A platform for developers to connect. They can create their portofolio by adding their experience, education, skills and other important information of their professional career.
+
+Users can also create small posts and like/dislike and comment on other posts.
+
+### Directory structure
 ```
 /
 |
@@ -35,22 +30,28 @@
 \
 ```
 
-## Technologies
-  - Nodejs/Express
-  - Mongodb/Mongoose
-  - JWT
-  - Bcryptjs
-
-## Editor && third party
-* [Visual Studio Code](https://code.visualstudio.com/)
-* [Postman](https://www.postman.com/)
-
-## Guidline for running project
-**Step 1:** Refer to https://documenter.getpostman.com/view/3259679/Szf9VmjX?version=latest#74cdabb6-b63e-4a2c-a3c6-fd4bcbd58afc to get all available API
-
-**Step 2:** Run command
- 
+### Quick Start
 ```
-  - npm install
-  - npm run server
+# clone repository
+https://github.com/RoshanSureen/dev-connector.git
+
+# Install dependencies
+cd nodejs-server-demo && npm install
 ```
+To run the development server:
+```
+# the development server runs
+npm run server
+```
+### Main Technologies
+ - Node.js / Express
+ - MongoDB
+ - JWT
+ - Passport
+ - Passport-jwt
+#### Libraries used in Server-side
+ - bcryptjs
+ - gravatar
+ - mongoose
+ - jwt-decode
+ - express-validator
