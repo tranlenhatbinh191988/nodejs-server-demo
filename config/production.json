@@ -1,0 +1,5 @@
+{
+  "mongoURI": "mongodb+srv://rinto:123@qwe@social-share-w6me6.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken",
+  "githubToken": "317dd4762fe453f76653ab6c6a35d678536889c9"
+}
