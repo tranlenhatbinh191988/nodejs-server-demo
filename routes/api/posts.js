@@ -97,4 +97,40 @@ router.delete(
   }
 )
 
+// @route PUT api/posts/item?:id
+// @desc Update a post by id
+// @access Private
+
+router.put(
+  '/item?',
+  [auth, [check("text", "Text is required").not().isEmpty()]],
+  async(req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { text } = req.body
+    // Build post object
+    const postInfo = {}
+    if(text) postInfo.text = text
+    try {
+      let post = await Post.findById(req.query.id)
+      if(post) {
+        // Update profile
+        post = await Post.findOneAndUpdate(
+          req.params.id,
+          {$set: postInfo},
+          {new: true}
+        )
+        return res.json(post)
+      }
+    } catch(err){
+      console.log(err.message)
+      res.status(500).send('Server error')
+    }
+  }
+)
+
+
+
 module.exports = router;
